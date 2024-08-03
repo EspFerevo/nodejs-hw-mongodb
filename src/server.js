@@ -10,7 +10,7 @@ import { notFoundHandler } from './midlewares/notFoundHandler.js';
 
 const PORT = Number(env('PORT', '3000'));
 
-export const startServer = () => {  // Убедитесь, что функция экспортируется как startServer
+export const startServer = () => {
   const app = express();
 
   app.use(express.json());
@@ -26,7 +26,7 @@ export const startServer = () => {  // Убедитесь, что функция
 
   app.get('/', (req, res) => {
     res.json({
-      message: 'Hello world!',
+      message: 'Your server is successfully responding to the request.',
     });
   });
 
