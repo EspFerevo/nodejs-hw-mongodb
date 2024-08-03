@@ -7,9 +7,10 @@ import contactsRouter from './routers/contacts.js';
 import { errorHandler } from './midlewares/errorHandler.js';
 import { notFoundHandler } from './midlewares/notFoundHandler.js';
 
+
 const PORT = Number(env('PORT', '3000'));
 
-export const setupServer = () => {
+export const startServer = () => {  // Убедитесь, что функция экспортируется как startServer
   const app = express();
 
   app.use(express.json());
