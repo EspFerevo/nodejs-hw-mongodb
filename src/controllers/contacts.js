@@ -7,9 +7,9 @@ import {
   upsertContact,
 } from '../services/ contacts.js';
 import { parsePaginationParams } from '../utils/parsePaginationParams.js';
-
+//
 export const getContactsController = async (req, res) => {
-  const { page, perPage } = parsePaginationParams(req.qery);
+  const { page, perPage } = parsePaginationParams(req.query);
 
   const contacts = await getAllContacts({
     page,
@@ -22,7 +22,7 @@ export const getContactsController = async (req, res) => {
     data: contacts,
   });
 };
-
+//
 export const getContactsByIdController = async (req, res, next) => {
   const { contactId } = req.params;
   const contact = await getContactById(contactId);
@@ -37,7 +37,7 @@ export const getContactsByIdController = async (req, res, next) => {
     data: contact,
   });
 };
-
+//
 export const createContactController = async (req, res) => {
   const contact = await createContact(req.body);
 
@@ -47,7 +47,7 @@ export const createContactController = async (req, res) => {
     data: contact,
   });
 };
-
+//
 export const deleteContactController = async (req, res, next) => {
   const { contactId } = req.params;
   const contact = await deleteContact(contactId);
@@ -58,7 +58,7 @@ export const deleteContactController = async (req, res, next) => {
   }
   res.status(204).send();
 };
-
+//
 export const upsertContactController = async (req, res, next) => {
   const { contactId } = req.params;
   const result = await upsertContact(contactId, req.body, {
@@ -78,7 +78,7 @@ export const upsertContactController = async (req, res, next) => {
     data: result.contact,
   });
 };
-
+//
 export const patchContactController = async (req, res, next) => {
   const { contactId } = req.params;
   const result = await upsertContact(contactId, req.body, {}, true);

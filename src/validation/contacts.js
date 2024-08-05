@@ -21,7 +21,6 @@ export const createContactSchema = Joi.object({
     .message('Please enter valid email'),
 
   isFavourite: Joi.boolean(),
-
   contactType: Joi.string().valid('work', 'home', 'personal'),
 });
 
