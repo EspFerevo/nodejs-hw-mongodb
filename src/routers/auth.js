@@ -7,13 +7,15 @@ import { loginUserSchema } from '../validation/auth.js';
 import { loginUserController } from '../controllers/auth.js';
 
 const router = Router();
-///
+
+/// Роутер регистрации
 router.post(
   '/register',
   validateBody(registerUserSchema),
   ctrlWrapper(registerUserController),
 );
-///
+
+/// Роутер для логина
 router.post(
   '/login',
   validateBody(loginUserSchema),
