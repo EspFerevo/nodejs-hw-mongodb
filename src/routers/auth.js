@@ -1,10 +1,13 @@
 import { Router } from 'express';
 import { ctrlWrapper } from '../utils/ctrlWrapper.js';
-import { registerUserSchema } from '../validation/auth.js';
-import { registerUserController } from '../controllers/auth.js';
+import { registerUserSchema, loginUserSchema } from '../validation/auth.js'; // Объедините импорты
+import {
+  logoutUserController,
+  registerUserController,
+  loginUserController,
+  refreshUserSessionController,
+} from '../controllers/auth.js';
 import { validateBody } from '../midlewares/validateBody.js';
-import { loginUserSchema } from '../validation/auth.js';
-import { loginUserController } from '../controllers/auth.js';
 
 const router = Router();
 
@@ -21,4 +24,12 @@ router.post(
   validateBody(loginUserSchema),
   ctrlWrapper(loginUserController),
 );
+
+/// Роутер выхода пользователя
+router.post('/logout', ctrlWrapper(logoutUserController));
+
+/// Роутер обновления сессии пользователя
+router.post('/refresh', ctrlWrapper(refreshUserSessionController));
+
+
 export default router;

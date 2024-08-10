@@ -11,7 +11,7 @@ import { parseSortParams } from '../utils/parseSortParams.js';
 import {parseFilterParams} from '../utils/parseFilterParams.js'
 
 
-//
+/// Получение всех пользователей из JSON
 export const getContactsController = async (req, res) => {
   const { page, perPage } = parsePaginationParams(req.query);
 
@@ -33,7 +33,8 @@ export const getContactsController = async (req, res) => {
     data: contacts,
   });
 };
-//
+
+/// Получение пользователя по ID
 export const getContactsByIdController = async (req, res, next) => {
   const { contactId } = req.params;
   const contact = await getContactById(contactId);
@@ -48,7 +49,8 @@ export const getContactsByIdController = async (req, res, next) => {
     data: contact,
   });
 };
-//
+
+/// Создание нового пользователя Postman
 export const createContactController = async (req, res) => {
   const contact = await createContact(req.body);
 
@@ -58,7 +60,8 @@ export const createContactController = async (req, res) => {
     data: contact,
   });
 };
-//
+
+/// Удаление пользователя по ID
 export const deleteContactController = async (req, res, next) => {
   const { contactId } = req.params;
   const contact = await deleteContact(contactId);
@@ -69,7 +72,8 @@ export const deleteContactController = async (req, res, next) => {
   }
   res.status(204).send();
 };
-//
+
+// Обновление пользователя
 export const upsertContactController = async (req, res, next) => {
   const { contactId } = req.params;
   const result = await upsertContact(contactId, req.body, {
@@ -89,7 +93,8 @@ export const upsertContactController = async (req, res, next) => {
     data: result.contact,
   });
 };
-//
+
+// Обновление пользователя
 export const patchContactController = async (req, res, next) => {
   const { contactId } = req.params;
   const result = await upsertContact(contactId, req.body, {}, true);
