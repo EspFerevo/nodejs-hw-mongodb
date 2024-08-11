@@ -3,7 +3,7 @@ import { randomBytes } from 'crypto';
 import { UsersCollection } from '../db/models/user.js';
 import createHttpError from 'http-errors';
 
-import { FIFTEEN_MINUTES, ONE_DAY } from '../constants/index.js';
+import { FIFTEEN_MINUTES, THIRTY_DAYS } from '../constants/index.js';
 import { SessionsCollection } from '../db/models/session.js';
 
 /// Функционал регистрации пользователя
@@ -12,7 +12,7 @@ export const registerUser = async (payload) => {
     email: payload.email,
   });
 
-  if (user) throw createHttpError(409, 'Email in used');
+  if (user) throw createHttpError(409, 'Email in use');
 
   const encryptedPassword = await bcrypt.hash(payload.password, 10);
 
@@ -22,11 +22,12 @@ export const registerUser = async (payload) => {
   });
 };
 
-/// Функционал создания сессии
+/// Функционал входа пользователя
 export const loginUser = async (payload) => {
   const user = await UsersCollection.findOne({
     email: payload.email,
   });
+
   if (!user) {
     throw createHttpError(404, 'User not found');
   }
@@ -47,7 +48,7 @@ export const loginUser = async (payload) => {
     accessToken,
     refreshToken,
     accessTokenValidUntil: new Date(Date.now() + FIFTEEN_MINUTES),
-    refreshTokenValidUntil: new Date(Date.now() + ONE_DAY),
+    refreshTokenValidUntil: new Date(Date.now() + THIRTY_DAYS),
   });
 };
 
@@ -66,7 +67,7 @@ const createSession = () => {
     accessToken,
     refreshToken,
     accessTokenValidUntil: new Date(Date.now() + FIFTEEN_MINUTES),
-    refreshTokenValidUntil: new Date(Date.now() + ONE_DAY),
+    refreshTokenValidUntil: new Date(Date.now() + THIRTY_DAYS),
   };
 };
 
