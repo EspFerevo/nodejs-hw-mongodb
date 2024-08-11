@@ -9,6 +9,7 @@ export const getAllContacts = async ({
   sortOrder = SORT_ORDER.ASC,
   sortBy = '_id',
   filter,
+  userId,
 }) => {
   const skip = (page - 1) * perPage;
   const contactsQuery = ContactsCollection.find();
@@ -38,21 +39,25 @@ export const getAllContacts = async ({
 };
 
 // Поиск
-export const getContactById = async (contactId) => {
-  const contact = await ContactsCollection.findById(contactId);
+export const getContactById = async (contactId, userId) => {
+  const contact = await ContactsCollection.findById(contactId, userId);
   return contact;
 };
 
 //Создание
-export const createContact = async (payload) => {
-  const contact = await ContactsCollection.create(payload);
+export const createContact = async (payload, userId) => {
+  const contact = await ContactsCollection.create({
+    ...payload,
+    userId,
+  });
   return contact;
 };
 
 //Удаление
-export const deleteContact = async (contactId) => {
+export const deleteContact = async (contactId, userId) => {
   const contact = await ContactsCollection.findOneAndDelete({
     _id: contactId,
+    userId,
   });
   return contact;
 };
@@ -63,14 +68,16 @@ export const upsertContact = async (
   payload,
   options = {},
   isPatch = false,
+  userId,
 ) => {
   const updateOperation = isPatch ? { $set: payload } : payload;
 
   const data = await ContactsCollection.findOneAndUpdate(
-    { _id: contactId },
+    { _id: contactId, userId },
     updateOperation,
     {
       new: true,
+      upsert: true,
       includeResultMetadata: true,
       ...options,
     },
