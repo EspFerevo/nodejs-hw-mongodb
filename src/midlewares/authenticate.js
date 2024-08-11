@@ -5,7 +5,13 @@ import { UsersCollection } from '../db/models/user.js';
 
 /// Мидлвар для аутентификации пользователя и проверки наявности и действительности токена в заголовке запроса
 export const authenticate = async (req, res, next) => {
-  const authHeader = res.get('Authorization');
+  const authHeader = req.get('Authorization');
+
+  if (!authHeader) {
+    next(createHttpError(401, 'Please provide Authorization header'));
+    return;
+  }
+  const [bearer, token] = authHeader.split(' ');
 
   if (bearer !== 'Bearer' || !token) {
     next(createHttpError(401, 'Auth header should be of type Bearer'));
