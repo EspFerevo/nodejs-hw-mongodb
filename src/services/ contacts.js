@@ -12,7 +12,7 @@ export const getAllContacts = async ({
   userId,
 }) => {
   const skip = (page - 1) * perPage;
-  const contactsQuery = ContactsCollection.find();
+  const contactsQuery = ContactsCollection.find({ userId });
 
   if (filter.type) {
     contactsQuery.where('contactType').equals(filter.type);
@@ -40,14 +40,25 @@ export const getAllContacts = async ({
 
 // Поиск
 export const getContactById = async (contactId, userId) => {
-  const contact = await ContactsCollection.findById(contactId, userId);
+  const contact = await ContactsCollection.findOne({ _id: contactId, userId });
   return contact;
 };
 
 //Создание
-export const createContact = async (payload, userId) => {
+export const createContact = async ({
+  name,
+  phoneNumber,
+  email = null,
+  isFavourite = false,
+  contactType = 'personal',
+  userId,
+}) => {
   const contact = await ContactsCollection.create({
-    ...payload,
+    name,
+    phoneNumber,
+    email,
+    isFavourite,
+    contactType,
     userId,
   });
   return contact;
