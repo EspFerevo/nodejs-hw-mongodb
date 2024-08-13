@@ -43,6 +43,7 @@ router.patch(
 ///
 router.delete(
   '/:contactId',
+  validateBody(createContactSchema),
   isValidId,
   ctrlWrapper(deleteContactController));
 ///
