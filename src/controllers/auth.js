@@ -15,7 +15,7 @@ export const registerUserController = async (req, res) => {
 
 /// Процесс обработки запроса на вход пользователя и взаимодействие с клиентом через HTTP
 export const loginUserController = async (req, res) => {
-  await loginUser(req.body);
+  const session = await loginUser(req.body);
 
   res.cookie('refreshToken', session.refreshToken, {
     httpOnly: true,
@@ -36,6 +36,7 @@ export const loginUserController = async (req, res) => {
   });
 };
 
+
 /// Процесс обработки запроса на выход пользователя и взаимодействие с клиентом через HTTP
 export const logoutUserController = async (req, res) => {
   if (req.cookies.sessionId) {
@@ -45,7 +46,7 @@ export const logoutUserController = async (req, res) => {
   res.clearCookie('sessionId');
   res.clearCookie('refreshToken');
 
-  res.status(204), send();
+  res.status(204).send();
 };
 
 /// Процесс обновления сессии пользователя и взаимодействие с клиентом через HTTP

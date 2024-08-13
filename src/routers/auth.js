@@ -1,13 +1,16 @@
 import { Router } from 'express';
 import { ctrlWrapper } from '../utils/ctrlWrapper.js';
-import { registerUserSchema, loginUserSchema } from '../validation/auth.js'; // Объедините импорты
+import { validateBody } from '../midlewares/validateBody.js';
+import {
+  registerUserSchema,
+  loginUserSchema
+} from '../validation/auth.js';
 import {
   logoutUserController,
   registerUserController,
   loginUserController,
-  refreshUserSessionController,
+  refreshUserSessionController
 } from '../controllers/auth.js';
-import { validateBody } from '../midlewares/validateBody.js';
 
 const router = Router();
 
