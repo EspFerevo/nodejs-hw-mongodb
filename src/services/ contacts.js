@@ -2,7 +2,7 @@ import { ContactsCollection } from '../db/models/contact.js';
 import { calculatePaginationData } from '../utils/calculatePaginationData.js';
 import { SORT_ORDER } from '../constants/index.js';
 
-// Все контакты + пагинация + фильтрация по параметрам
+// Получение всех контактов с возможностью пагинации, сортировки и фильтрации
 export const getAllContacts = async ({
   page = 1,
   perPage = 10,
@@ -38,13 +38,13 @@ export const getAllContacts = async ({
   };
 };
 
-// Поиск
+// Получение контакта по ID и userId
 export const getContactById = async (contactId, userId) => {
   const contact = await ContactsCollection.findOne({ _id: contactId, userId });
   return contact;
 };
 
-//Создание
+// Создание нового контакта
 export const createContact = async ({
   name,
   phoneNumber,
@@ -64,7 +64,7 @@ export const createContact = async ({
   return contact;
 };
 
-//Удаление
+// Удаление контакта по ID и userId
 export const deleteContact = async (contactId, userId) => {
   const contact = await ContactsCollection.findOneAndDelete({
     _id: contactId,
@@ -73,7 +73,7 @@ export const deleteContact = async (contactId, userId) => {
   return contact;
 };
 
-// Обновление
+// Обновление или создание контакта (upsert)
 export const upsertContact = async (
   contactId,
   payload,

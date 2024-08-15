@@ -12,10 +12,12 @@ export const registerUser = async (payload) => {
     email: payload.email,
   });
 
+    // Если пользователь уже существует, выбрасываем ошибку (конфликт)
   if (user !== null) throw createHttpError(409, 'Email in use');
 
   const encryptedPassword = await bcrypt.hash(payload.password, 10);
 
+  // Создание нового пользователя и возврат созданного документа
   return await UsersCollection.create({
     ...payload,
     password: encryptedPassword,
@@ -32,11 +34,13 @@ export const loginUser = async (payload) => {
     throw createHttpError(404, 'User not found');
   }
 
+    // Сравнение введённого пароля с сохранённым хешем пароля
   const isEqual = await bcrypt.compare(payload.password, user.password);
 
   if (!isEqual) {
     throw createHttpError(401, 'Unauthorized');
   }
+
 
   await SessionsCollection.deleteOne({ userId: user._id }); // Удаление предыдущей сессии пользователя
 

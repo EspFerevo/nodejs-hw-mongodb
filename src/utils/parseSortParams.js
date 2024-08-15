@@ -6,6 +6,7 @@ const parseSortOrder = (sortOrder) => {
 };
 
 const parseSortBy = (sortBy) => {
+    // Список допустимых ключей для сортировки
   const keysOfContact = [
     '_id',
     'name',
@@ -17,6 +18,7 @@ const parseSortBy = (sortBy) => {
     'updatedAt',
   ];
 
+  // Проверяем, является ли указанный ключ допустимым для сортировки
   return keysOfContact.includes(sortBy) ? sortBy : '_id';
 };
 

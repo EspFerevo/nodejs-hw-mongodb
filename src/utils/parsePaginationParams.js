@@ -2,7 +2,10 @@ const parseNumber = (number, defaultValue) => {
   const isString = typeof number === 'string';
   if (!isString) return defaultValue;
 
+  // Пытаемся распарсить строку в целое число
   const parsedNumber = parseInt(number);
+
+  // Проверяем, получилось ли распарсить число, если нет - возвращаем значение по умолчанию
   if (Number.isNaN(parsedNumber)) {
     return defaultValue;
   }
