@@ -12,7 +12,7 @@ export const registerUser = async (payload) => {
     email: payload.email,
   });
 
-  if (user) throw createHttpError(409, 'Email in use');
+  if (user !== null) throw createHttpError(409, 'Email in use');
 
   const encryptedPassword = await bcrypt.hash(payload.password, 10);
 
