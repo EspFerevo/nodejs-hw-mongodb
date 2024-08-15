@@ -14,24 +14,24 @@ import {
 
 const router = Router();
 
-/// Роутер регистрации
+/// Роутер для регистрации нового пользователя
 router.post(
   '/register',
-  validateBody(registerUserSchema),
+  validateBody(registerUserSchema), // Проверяет тело запроса на соответствие схеме регистрации пользователя
   ctrlWrapper(registerUserController),
 );
 
-/// Роутер для логина
+/// Роутер для входа пользователя в систему
 router.post(
   '/login',
-  validateBody(loginUserSchema),
+  validateBody(loginUserSchema), // Проверяет тело запроса на соответствие схеме логина пользователя
   ctrlWrapper(loginUserController),
 );
 
-/// Роутер выхода пользователя
+/// Роутер для выхода пользователя из системы
 router.post('/logout', ctrlWrapper(logoutUserController));
 
-/// Роутер обновления сессии пользователя
+/// Роутер для обновления сессии пользователя
 router.post('/refresh', ctrlWrapper(refreshUserSessionController));
 
 
