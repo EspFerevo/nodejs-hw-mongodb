@@ -41,7 +41,7 @@ export const loginUser = async (payload) => {
     throw createHttpError(401, 'Unauthorized');
   }
 
-  
+
   await SessionsCollection.deleteOne({ userId: user._id }); // Удаление предыдущей сессии пользователя
 
   const accessToken = randomBytes(30).toString('base64');
