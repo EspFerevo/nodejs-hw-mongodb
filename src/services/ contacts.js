@@ -39,8 +39,8 @@ export const getAllContacts = async ({
 };
 
 // Получение контакта по ID и userId
-export const getContactById = async (contactId, userId) => {
-  const contact = await ContactsCollection.findOne({ _id: contactId, userId });
+export const getContactById = async ({ _id, userId }) => {
+  const contact = await ContactsCollection.findOne({ _id, userId });
   return contact;
 };
 
@@ -65,9 +65,9 @@ export const createContact = async ({
 };
 
 // Удаление контакта по ID и userId
-export const deleteContact = async (contactId, userId) => {
+export const deleteContact = async ({ _id, userId }) => {
   const contact = await ContactsCollection.findOneAndDelete({
-    _id: contactId,
+    _id,
     userId,
   });
   return contact;
@@ -75,16 +75,15 @@ export const deleteContact = async (contactId, userId) => {
 
 // Обновление или создание контакта (upsert)
 export const upsertContact = async (
-  contactId,
+  { _id, userId },
   payload,
   options = {},
   isPatch = false,
-  userId,
 ) => {
   const updateOperation = isPatch ? { $set: payload } : payload;
 
   const data = await ContactsCollection.findOneAndUpdate(
-    { _id: contactId, userId },
+    { _id, userId },
     updateOperation,
     {
       new: true,
@@ -101,3 +100,4 @@ export const upsertContact = async (
     isNew: Boolean(data?.lastErrorObject?.upserted),
   };
 };
+
