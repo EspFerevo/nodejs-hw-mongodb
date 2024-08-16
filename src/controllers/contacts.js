@@ -51,6 +51,7 @@ export const getContactsByIdController = async (req, res, next) => {
   });
 };
 
+
 /// Создание нового пользователя Postman
 export const createContactController = async (req, res) => {
   if (!isValidObjectId(req.user._id))
@@ -72,7 +73,10 @@ export const createContactController = async (req, res) => {
 /// Удаление контакта по ID
 export const deleteContactController = async (req, res, next) => {
   const { contactId } = req.params;
-  const contact = await deleteContact({ _id: contactId, userId: req.user._id });
+  const contact = await deleteContact({
+    _id: contactId,
+    userId: req.user._id,
+  });
 
   if (!contact) {
     next(createHttpError(404, 'Contact not found'));
@@ -80,6 +84,7 @@ export const deleteContactController = async (req, res, next) => {
   }
   res.status(204).send();
 };
+
 
 /// Обновление контакта (upsert)
 export const upsertContactController = async (req, res, next) => {
@@ -104,6 +109,7 @@ export const upsertContactController = async (req, res, next) => {
   });
 };
 
+
 /// Частичное обновление контакта
 export const patchContactController = async (req, res, next) => {
   const { contactId } = req.params;
@@ -111,7 +117,7 @@ export const patchContactController = async (req, res, next) => {
     { _id: contactId, userId: req.user._id },
     req.body,
     {},
-    true,
+    true
   );
 
   if (!result) {
