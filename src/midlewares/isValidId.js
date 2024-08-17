@@ -12,3 +12,9 @@ export const isValidId = (req, res, next) => {
 
   next();
 };
+
+// export const isValidId = (req, res, next) => {
+//   isValidObjectId(req.params.contactId)
+//     ? next()
+//     : next(createHttpError(404, 'Contact not found'));
+// };
