@@ -39,9 +39,8 @@ export const getAllContacts = async ({
 };
 
 // Получение контакта по ID и userId
-export const getContactById = async ({ _id, userId }) => {
-  const contact = await ContactsCollection.findOne({ _id, userId });
-  return contact;
+export const getContactById = async (contactId, userId) => {
+  return ContactsCollection.findOne({_id: contactId, userId});
 };
 
 // Создание нового контакта

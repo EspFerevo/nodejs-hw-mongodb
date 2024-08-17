@@ -25,11 +25,11 @@ router.use(authenticate);
 router.get('/', ctrlWrapper(getContactsController));
 
 /// Получение контакта по ID
-router.get('/:contactId', isValidId, ctrlWrapper(getContactsByIdController));
+router.get('/:contactId', ctrlWrapper(getContactsByIdController));
 
 /// Создание нового контакта
 router.post(
-  '/register',
+  '/',
   validateBody(createContactSchema),
   ctrlWrapper(createContactController),
 );
@@ -50,13 +50,6 @@ router.patch(
 );
 
 /// Удаление контакта по ID
-router.delete(
-  '/:contactId',
-  validateBody(createContactSchema),
-  isValidId,
-  ctrlWrapper(deleteContactController));
-
-
-
+router.delete('/:contactId', isValidId, ctrlWrapper(deleteContactController));
 
 export default router;

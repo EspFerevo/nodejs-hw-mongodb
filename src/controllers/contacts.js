@@ -5,7 +5,7 @@ import {
   createContact,
   deleteContact,
   upsertContact,
-} from '../services/ contacts.js';
+} from '../services/contacts.js';
 import { parsePaginationParams } from '../utils/parsePaginationParams.js';
 import { parseSortParams } from '../utils/parseSortParams.js';
 import { parseFilterParams } from '../utils/parseFilterParams.js';
@@ -23,7 +23,6 @@ export const getContactsController = async (req, res) => {
     sortBy,
     sortOrder,
     filter,
-
   });
 
   res.json({
@@ -34,10 +33,11 @@ export const getContactsController = async (req, res) => {
 };
 
 /// Получение контакта по ID
+
 export const getContactsByIdController = async (req, res, next) => {
   const { contactId } = req.params;
-
-  const contact = await getContactById(contactId, req.user._id);
+  const userId = req.user._id;
+  const contact = await getContactById(contactId, userId);
 
   if (!contact) {
     throw createHttpError(404, 'Contact not found');
