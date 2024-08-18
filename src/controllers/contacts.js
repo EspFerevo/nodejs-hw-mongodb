@@ -5,7 +5,7 @@ import {
   createContact,
   deleteContact,
   upsertContact,
-} from '../services/ contacts.js';
+} from '../services/contacts.js';
 import { parsePaginationParams } from '../utils/parsePaginationParams.js';
 import { parseSortParams } from '../utils/parseSortParams.js';
 import { parseFilterParams } from '../utils/parseFilterParams.js';
@@ -37,6 +37,9 @@ export const getContactsController = async (req, res) => {
 export const getContactsByIdController = async (req, res, next) => {
   const { contactId } = req.params;
 
+  console.log('Received contactId:', contactId);
+  console.log('User ID:', req.user._id);
+  
   const contact = await getContactById(contactId, req.user._id);
 
   if (!contact) {
@@ -49,7 +52,6 @@ export const getContactsByIdController = async (req, res, next) => {
     data: contact,
   });
 };
-
 
 /// Создание нового пользователя Postman
 export const createContactController = async (req, res) => {
