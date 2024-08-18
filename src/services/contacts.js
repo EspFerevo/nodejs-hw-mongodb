@@ -109,6 +109,7 @@ import { ContactsCollection } from '../db/models/contact.js';
 import { calculatePaginationData } from '../utils/calculatePaginationData.js';
 import { SORT_ORDER } from '../constants/index.js';
 
+// Получение всех контактов с возможностью пагинации, сортировки и фильтрации
 export const getAllContacts = async ({
   page = 1,
   perPage = 3,
@@ -146,19 +147,23 @@ export const getAllContacts = async ({
   };
 };
 
+// Получение контакта по ID и userId
 export const getContactById = async (contactId) => {
   return ContactsCollection.findOne({_id: contactId});
 };
 
+// Создание нового контакта
 export const createContact = async (payload) => {
   const contact = await ContactsCollection.create(payload);
   return contact;
 };
 
+// Удаление контакта по ID и userId
 export const deleteContact = async (contactId) => {
   return ContactsCollection.findByIdAndDelete({_id: contactId});
 };
 
+// Обновление или создание контакта (upsert)
 export const upsertContact = async (
   contactId,
   payload,
