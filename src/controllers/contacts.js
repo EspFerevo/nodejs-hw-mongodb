@@ -23,6 +23,7 @@ export const getContactsController = async (req, res) => {
     sortBy,
     sortOrder,
     filter,
+
   });
 
   res.json({
@@ -33,11 +34,13 @@ export const getContactsController = async (req, res) => {
 };
 
 /// Получение контакта по ID
-
 export const getContactsByIdController = async (req, res, next) => {
   const { contactId } = req.params;
-  const userId = req.user._id;
-  const contact = await getContactById(contactId, userId);
+
+  console.log('Received contactId:', contactId);
+  console.log('User ID:', req.user._id);
+  
+  const contact = await getContactById(contactId, req.user._id);
 
   if (!contact) {
     throw createHttpError(404, 'Contact not found');
@@ -49,7 +52,6 @@ export const getContactsByIdController = async (req, res, next) => {
     data: contact,
   });
 };
-
 
 /// Создание нового пользователя Postman
 export const createContactController = async (req, res) => {
