@@ -15,7 +15,7 @@ export const authenticate = async (req, res, next) => {
 
   // Разбирает заголовок на тип и токен
   const [bearer, token] = authHeader.split(' ');
-  
+
 
   // Проверяет, что заголовок имеет тип Bearer и присутствует токен
   if (bearer !== 'Bearer' || !token) {
