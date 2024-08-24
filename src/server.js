@@ -35,6 +35,7 @@ export const startServer = () => {
     });
   });
 
+  app.use('/uploads', express.static(UPLOAD_DIR));
 
   app.use(router);
 
@@ -46,7 +47,6 @@ export const startServer = () => {
     console.log(`Server is running on port ${PORT}`);
   });
 
-  app.use('/uploads', express.static(UPLOAD_DIR));
 };
 
 
