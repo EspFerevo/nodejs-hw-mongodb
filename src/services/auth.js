@@ -1,4 +1,6 @@
 import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
+
 import { randomBytes } from 'crypto';
 import { UsersCollection } from '../db/models/user.js';
 import createHttpError from 'http-errors';
@@ -6,13 +8,17 @@ import createHttpError from 'http-errors';
 import { FIFTEEN_MINUTES, THIRTY_DAYS } from '../constants/index.js';
 import { SessionsCollection } from '../db/models/session.js';
 
+import { SMTP } from '../constants/index.js';
+import { env } from '../utils/env.js';
+import { sendEmail } from '../utils/sendMail.js';
+
 /// Функционал регистрации пользователя
 export const registerUser = async (payload) => {
   const user = await UsersCollection.findOne({
     email: payload.email,
   });
 
-    // Если пользователь уже существует, выбрасываем ошибку (конфликт)
+  // Если пользователь уже существует, выбрасываем ошибку (конфликт)
   if (user !== null) throw createHttpError(409, 'Email in use');
 
   const encryptedPassword = await bcrypt.hash(payload.password, 10);
@@ -34,13 +40,12 @@ export const loginUser = async (payload) => {
     throw createHttpError(404, 'User not found');
   }
 
-    // Сравнение введённого пароля с сохранённым хешем пароля
+  // Сравнение введённого пароля с сохранённым хешем пароля
   const isEqual = await bcrypt.compare(payload.password, user.password);
 
   if (!isEqual) {
     throw createHttpError(401, 'Unauthorized');
   }
-
 
   await SessionsCollection.deleteOne({ userId: user._id }); // Удаление предыдущей сессии пользователя
 
@@ -60,7 +65,6 @@ export const loginUser = async (payload) => {
 export const logoutUser = async (sessionId) => {
   await SessionsCollection.deleteOne({ _id: sessionId });
 };
-
 
 /// Обновление сессии пользователя и взаимодействие с базой данных
 const createSession = () => {
@@ -100,5 +104,31 @@ export const refreshUsersSession = async ({ sessionId, refreshToken }) => {
   return await SessionsCollection.create({
     userId: session.userId,
     ...newSession,
+  });
+};
+
+/// Функция сброса пароля пользователя
+
+export const requestResetToken = async (email) => {
+  const user = await UsersCollection.findOne({ email });
+  if (!user) {
+    throw createHttpError(404, 'User not found');
+  }
+  const resetToken = jwt.sign(
+    {
+      sub: user._id,
+      email,
+    },
+    env('JWT_SECRET'),
+    {
+      expiresIn: '15m',
+    },
+  );
+
+  await sendEmail({
+    from: env(SMTP.SMTP_FROM),
+    to: email,
+    subject: 'Reset your password',
+    html: `<p>Click <a href="${resetToken}">here</a> to reset your password!</p>`,
   });
 };

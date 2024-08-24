@@ -17,3 +17,9 @@ export const loginUserSchema = Joi.object({
     'any.required': 'Password is required',
   }),
 });
+
+/// Сброс мейла пользователя
+
+export const requestResetEmailSchema = Joi.object({
+  email: Joi.string().email().required(),
+});
