@@ -8,6 +8,7 @@ import router from './routers/index.js';
 import { errorHandler } from './midlewares/errorHandler.js';
 import { notFoundHandler } from './midlewares/notFoundHandler.js';
 import cookieParser from 'cookie-parser';
+import { UPLOAD_DIR } from './constants/index.js';
 
 
 
@@ -34,7 +35,8 @@ export const startServer = () => {
     });
   });
 
-  // app.use(contactsRouter);
+  app.use('/uploads', express.static(UPLOAD_DIR));
+
   app.use(router);
 
   app.use('*', notFoundHandler);
@@ -44,4 +46,7 @@ export const startServer = () => {
   app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
   });
+
 };
+
+

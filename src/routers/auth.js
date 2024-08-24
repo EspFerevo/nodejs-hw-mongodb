@@ -12,7 +12,7 @@ import {
   loginUserController,
   refreshUserSessionController,
 } from '../controllers/auth.js';
-import { requestResetEmailController } from '../controllers/contacts.js';
+import { requestResetEmailController } from '../controllers/auth.js';
 import { resetPasswordController } from '../controllers/auth.js';
 import { resetPasswordSchema } from '../validation/auth.js';
 
