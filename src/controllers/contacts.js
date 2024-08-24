@@ -9,7 +9,9 @@ import {
 import { parsePaginationParams } from '../utils/parsePaginationParams.js';
 import { parseSortParams } from '../utils/parseSortParams.js';
 import { parseFilterParams } from '../utils/parseFilterParams.js';
+import { requestResetToken } from '../services/auth.js';
 
+///
 export const getContactsController = async (req, res) => {
   const { page, perPage } = parsePaginationParams(req.query);
   const { sortBy, sortOrder } = parseSortParams(req.query);
@@ -31,7 +33,7 @@ export const getContactsController = async (req, res) => {
     data: contacts,
   });
 };
-
+///
 export const getContactsByIdController = async (req, res, next) => {
   const { contactId } = req.params;
   const contact = await getContactById(contactId);
@@ -46,7 +48,7 @@ export const getContactsByIdController = async (req, res, next) => {
     data: contact,
   });
 };
-
+///
 export const createContactController = async (req, res) => {
   const userId = req.user._id;
   const contact = await createContact({ ...req.body, userId });
@@ -57,7 +59,7 @@ export const createContactController = async (req, res) => {
     data: contact,
   });
 };
-
+///
 export const deleteContactController = async (req, res, next) => {
   const { contactId } = req.params;
   const contact = await deleteContact(contactId);
@@ -71,7 +73,7 @@ export const deleteContactController = async (req, res, next) => {
     message: `Contact "${contact.name}" successfully deleted`,
   });
 };
-
+///
 export const upsertContactController = async (req, res, next) => {
   const { contactId } = req.params;
   const result = await upsertContact(contactId, req.body, {
@@ -91,7 +93,7 @@ export const upsertContactController = async (req, res, next) => {
     data: result.contact,
   });
 };
-
+///
 export const patchContactController = async (req, res, next) => {
   const { contactId } = req.params;
   const result = await upsertContact(contactId, req.body, {}, true);
@@ -105,5 +107,15 @@ export const patchContactController = async (req, res, next) => {
     status: 200,
     message: 'Successfully patched a contact!',
     data: result.contact,
+  });
+};
+///
+export const requestResetEmailController = async (req, res) => {
+  await requestResetToken(req.body.email);
+
+  res.json({
+    status: 'Reset password email was successfully sent!',
+    message: 200,
+    data: {},
   });
 };

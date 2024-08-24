@@ -1,13 +1,18 @@
 import { Router } from 'express';
 import { ctrlWrapper } from '../utils/ctrlWrapper.js';
 import { validateBody } from '../midlewares/validateBody.js';
-import { registerUserSchema, loginUserSchema } from '../validation/auth.js';
+import {
+  registerUserSchema,
+  loginUserSchema,
+  requestResetEmailSchema,
+} from '../validation/auth.js';
 import {
   logoutUserController,
   registerUserController,
   loginUserController,
   refreshUserSessionController,
 } from '../controllers/auth.js';
+import { requestResetEmailController } from '../controllers/contacts.js';
 
 const router = Router();
 
@@ -32,3 +37,10 @@ router.post('/logout', ctrlWrapper(logoutUserController));
 router.post('/refresh', ctrlWrapper(refreshUserSessionController));
 
 export default router;
+
+/// Роутер сброса пароля пользователя
+router.post(
+  '/request-reset-email',
+  validateBody(requestResetEmailSchema),
+  ctrlWrapper(requestResetEmailController),
+);
