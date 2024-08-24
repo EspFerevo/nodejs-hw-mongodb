@@ -14,6 +14,7 @@ import {
   updateContactSchema,
 } from '../validation/contacts.js';
 import { authenticate } from '../midlewares/authenticate.js';
+import { upload } from '../midlewares/multer.js';
 
 const router = Router();
 
@@ -24,11 +25,12 @@ router.use(authenticate);
 router.get('/', ctrlWrapper(getContactsController));
 
 /// Получение контакта по ID
-router.get('/:contactId',  ctrlWrapper(getContactsByIdController));
+router.get('/:contactId', ctrlWrapper(getContactsByIdController));
 
 /// Создание нового контакта
 router.post(
   '/',
+  upload.single('photo'),
   validateBody(createContactSchema),
   ctrlWrapper(createContactController),
 );
@@ -39,6 +41,7 @@ router.delete('/:contactId', ctrlWrapper(deleteContactController));
 /// Полное обновление (или создание) контакта по ID
 router.put(
   '/:contactId',
+  upload.single('photo'),
   validateBody(createContactSchema),
   ctrlWrapper(upsertContactController),
 );
@@ -46,6 +49,7 @@ router.put(
 ///Частичное обновление контакта по ID
 router.patch(
   '/:contactId',
+  upload.single('photo'),
   validateBody(updateContactSchema),
   ctrlWrapper(patchContactController),
 );
