@@ -1,0 +1,86 @@
+tags:
+  - Authentication
+summary: Register user
+operationId: registerUser
+description: 'Create new user from request body'
+requestBody:
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - name
+          - email
+          - password
+        properties:
+          name:
+            type: string
+            description: "User's name"
+            example: 'Winston Churchill'
+          email:
+            type: string
+            desacription: "User's email"
+            example: 'example@gmail.com'
+          password:
+            type: string
+            desacription: "User's password"
+            example: 'AgasAS412_2'
+responses:
+  '201':
+    description: User created
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+            - data
+          properties:
+            status:
+              type: integer
+              example: 201
+            message:
+              type: string
+              example: 'Successfully registered a user!'
+            data:
+              type: object
+              required:
+                - _id
+                - name
+                - email
+              properties:
+                _id:
+                  type: string
+                  example: '65e4decdd286b30065d54af9'
+                name:
+                  type: string
+                  example: 'Winston Churchill'
+                email:
+                  type: string
+                  example: 'example@gmail.com'
+  '409':
+    description: Email in use
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+            - data
+          properties:
+            status:
+              type: integer
+              example: 409
+            message:
+              type: string
+              example: 'ConflictError'
+            data:
+              type: object
+              required:
+                - message
+              properties:
+                message:
+                  type: string
+                  example: 'Email in use'

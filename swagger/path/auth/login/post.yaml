@@ -1,0 +1,49 @@
+tags:
+  - Authentication
+summary: Login user
+operationId: loginUser
+description: 'Login user from request body'
+requestBody:
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - email
+          - password
+        properties:
+          email:
+            type: string
+            example: 'example@gmail.com'
+          password:
+            type: string
+            example: 'sASgaslf_125'
+responses:
+  '200':
+    description: Success loging in
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+            - data
+          properties:
+            status:
+              type: integer
+              example: 200
+            message:
+              type: string
+              example: 'Successfully logged in an user!'
+            data:
+              type: object
+              required:
+                - accessToken
+              properties:
+                accessToken:
+                  type: string
+                  example: 'qLVfwR9pQRPbuAfEiwZXZwKUFTzT/oCWbpXYQh3m'
+  '401':
+    description: User not found or password is wrong
+    $ref: '../../../components/responses/401.yaml'

@@ -1,0 +1,10 @@
+tags:
+  - Authentication
+summary: Logout user
+operationId: logoutUser
+description: "Delete user's session. Request body should be empty, all required data takes from cookies. "
+security:
+  - cookieAuth: []
+responses:
+  '204':
+    description: Session Deleted. User logged out.

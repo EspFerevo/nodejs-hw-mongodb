@@ -4,22 +4,47 @@ info:
   title: Phonebook
   license:
     name: Apache 2.0
-    url: http://www.apache.org/licenses/LICENSE-2.0.html
-  description: This is a documentation of contacts app
+    url: <http://www.apache.org/licenses/LICENSE-2.0.html>
+  description: Phone contacts manager
 tags:
   - name: Contacts
     description: Operations with user's contacts book
   - name: Authentication
     description: Register, login, logout, refresh user operations
+
 servers:
-  - url: http://localhost:3000
+  - url: https://nodejs-hw-mongodb-ntfc.onrender.com
 paths:
-  /contacts/{id}:
+  /contacts:
     get:
-      $ref: ../swagger/paths/contacts/{id}/get.yaml
-
-
-
+      $ref: '../swagger/path/contacts/get.yaml'
+    post:
+      $ref: '../swagger/path/contacts/post.yaml'
+  /contacts/:contactId:
+    get:
+      $ref: '../swagger/path/contacts/id/get.yaml'
+    patch:
+      $ref: '../swagger/path/contacts/id/patch.yaml'
+    delete:
+      $ref: '../swagger/path/contacts/id/delete.yaml'
+  /auth/register:
+    post:
+      $ref: '../swagger/path/auth/register/post.yaml'
+  /auth/login:
+    post:
+      $ref: '../swagger/path/auth/login/post.yaml'
+  /auth/refresh:
+    post:
+      $ref: '../swagger/path/auth/refresh/post.yaml'
+  /auth/logout:
+    post:
+      $ref: '../swagger/path/auth/logout/post.yaml'
+  /auth/send-reset-email:
+    post:
+      $ref: '../swagger/path/auth/send-reset-email/post.yaml'
+  /auth/reset-pwd:
+    post:
+      $ref: '../swagger/path/auth/reset-pwd/post.yaml'
 components:
   securitySchemes:
     bearerAuth:
