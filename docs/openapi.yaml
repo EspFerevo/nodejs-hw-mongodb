@@ -1,0 +1,27 @@
+openapi: 3.1.0
+info:
+  version: 1.0.0
+  title: Phonebook
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  description: This is a documentation of contacts app
+tags:
+  - name: Contacts
+    description: Operations with user's contacts book
+  - name: Authentication
+    description: Register, login, logout, refresh user operations
+servers:
+  - url: http://localhost:3000
+paths:
+  /contacts/{id}:
+    get:
+      $ref: ../swagger/paths/contacts/{id}/get.yaml
+
+
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
