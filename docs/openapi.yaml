@@ -28,7 +28,7 @@ paths:
       $ref: '../swagger/path/contacts/get.yaml'
     post:
       $ref: '../swagger/path/contacts/post.yaml'
-  /contacts/:contactId:
+  /contacts/{contactId}:
     get:
       $ref: '../swagger/path/contacts/id/get.yaml'
     patch:
