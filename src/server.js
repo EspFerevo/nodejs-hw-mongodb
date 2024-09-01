@@ -9,6 +9,7 @@ import { errorHandler } from './midlewares/errorHandler.js';
 import { notFoundHandler } from './midlewares/notFoundHandler.js';
 import cookieParser from 'cookie-parser';
 import { UPLOAD_DIR } from './constants/index.js';
+import { swaggerDocs } from './midlewares/swaggerDocs.js';
 
 
 
