@@ -13,7 +13,7 @@ tags:
     description: Register, login, logout, refresh user operations
 
 servers:
-  - url: https://nodejs-hw-mongodb-ntfc.onrender.com
+  - url: http://localhost:3000
 
 components:
   securitySchemes:
@@ -25,33 +25,33 @@ components:
 paths:
   /contacts:
     get:
-      $ref: '../swagger/path/contacts/get.yaml'
+      $ref: '../swagger/paths/contacts/get.yaml'
     post:
-      $ref: '../swagger/path/contacts/post.yaml'
+      $ref: '../swagger/paths/contacts/post.yaml'
   /contacts/{contactId}:
     get:
-      $ref: '../swagger/path/contacts/id/get.yaml'
+      $ref: '../swagger/paths/contacts/id/get.yaml'
     patch:
-      $ref: '../swagger/path/contacts/id/patch.yaml'
+      $ref: '../swagger/paths/contacts/id/patch.yaml'
     delete:
-      $ref: '../swagger/path/contacts/id/delete.yaml'
+      $ref: '../swagger/paths/contacts/id/delete.yaml'
   /auth/register:
     post:
-      $ref: '../swagger/path/auth/register/post.yaml'
+      $ref: '../swagger/paths/auth/register/post.yaml'
   /auth/login:
     post:
-      $ref: '../swagger/path/auth/login/post.yaml'
+      $ref: '../swagger/paths/auth/login/post.yaml'
   /auth/refresh:
     post:
-      $ref: '../swagger/path/auth/refresh/post.yaml'
+      $ref: '../swagger/paths/auth/refresh/post.yaml'
   /auth/logout:
     post:
-      $ref: '../swagger/path/auth/logout/post.yaml'
+      $ref: '../swagger/paths/auth/logout/post.yaml'
   /auth/send-reset-email:
     post:
-      $ref: '../swagger/path/auth/send-reset-email/post.yaml'
+      $ref: '../swagger/paths/auth/send-reset-email/post.yaml'
   /auth/reset-pwd:
     post:
-      $ref: '../swagger/path/auth/reset-pwd/post.yaml'
+      $ref: '../swagger/paths/auth/reset-pwd/post.yaml'
       security:
         - bearerAuth: []
