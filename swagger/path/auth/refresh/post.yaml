@@ -3,8 +3,7 @@ tags:
 summary: Refresh user
 operationId: refreshUser
 description: "Refresh user's access token by refresh token. Request body should be empty, all required data takes from cookies."
-security:
-  - cookieAuth: []
+security: []
 responses:
   '200':
     description: Successfully refresh user
@@ -23,14 +22,14 @@ responses:
             message:
               type: string
               example: 'Successfully refreshed a session!'
-              data:
-                type: object
-                required:
-                  - accessToken
-                properties:
-                  accessToken:
-                    type: string
-                    example: 'qLVfwR9pQRPbuAfEiwZXZwKUFTzT/oCWbpXYQh3m'
+            data:
+              type: object
+              required:
+                - accessToken
+              properties:
+                accessToken:
+                  type: string
+                  example: 'qLVfwR9pQRPbuAfEiwZXZwKUFTzT/oCWbpXYQh3m'
   '401':
     description: 'Refresh token expired / not valid. Session not found'
     $ref: '../../../components/responses/401refresh.yaml'

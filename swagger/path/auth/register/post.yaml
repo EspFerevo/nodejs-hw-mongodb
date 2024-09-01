@@ -3,6 +3,7 @@ tags:
 summary: Register user
 operationId: registerUser
 description: 'Create new user from request body'
+security: []
 requestBody:
   content:
     application/json:
@@ -19,11 +20,11 @@ requestBody:
             example: 'Winston Churchill'
           email:
             type: string
-            desacription: "User's email"
+            description: "User's email"
             example: 'example@gmail.com'
           password:
             type: string
-            desacription: "User's password"
+            description: "User's password"
             example: 'AgasAS412_2'
 responses:
   '201':

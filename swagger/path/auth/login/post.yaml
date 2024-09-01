@@ -3,6 +3,7 @@ tags:
 summary: Login user
 operationId: loginUser
 description: 'Login user from request body'
+security: []
 requestBody:
   content:
     application/json:

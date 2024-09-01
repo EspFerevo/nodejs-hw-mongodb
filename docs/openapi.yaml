@@ -14,6 +14,14 @@ tags:
 
 servers:
   - url: https://nodejs-hw-mongodb-ntfc.onrender.com
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
 paths:
   /contacts:
     get:
@@ -45,8 +53,5 @@ paths:
   /auth/reset-pwd:
     post:
       $ref: '../swagger/path/auth/reset-pwd/post.yaml'
-components:
-  securitySchemes:
-    bearerAuth:
-      type: http
-      scheme: bearer
+      security:
+        - bearerAuth: []

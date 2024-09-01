@@ -2,7 +2,8 @@ tags:
   - Authentication
 summary: Reset password
 operationId: resetPassword
-desacription: "Reset user's password"
+description: "Reset user's password"
+security: []
 requestBody:
   content:
     application/json:
