@@ -17,7 +17,7 @@ requestBody:
           name:
             type: string
             description: "User's name"
-            example: 'Winston Churchill'
+            example: 'John Doe'
           email:
             type: string
             description: "User's email"
@@ -56,7 +56,7 @@ responses:
                   example: '65e4decdd286b30065d54af9'
                 name:
                   type: string
-                  example: 'Winston Churchill'
+                  example: 'John Doe'
                 email:
                   type: string
                   example: 'example@gmail.com'
