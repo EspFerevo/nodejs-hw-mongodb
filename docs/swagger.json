@@ -207,7 +207,7 @@
                   "name": {
                     "description": "Contact's name",
                     "type": "string",
-                    "example": "Winston Churchill"
+                    "example": "John Doe"
                   },
                   "phoneNumber": {
                     "description": "Contac's phone number",
@@ -373,7 +373,7 @@
                   "name": {
                     "description": "Contact's name",
                     "type": "string",
-                    "example": "Winston Churchill"
+                    "example": "John Doe"
                   },
                   "phoneNumber": {
                     "description": "Contac's phone number",
@@ -501,7 +501,7 @@
                   "name": {
                     "type": "string",
                     "description": "User's name",
-                    "example": "Winston Churchill"
+                    "example": "John Doe"
                   },
                   "email": {
                     "type": "string",
@@ -553,7 +553,7 @@
                         },
                         "name": {
                           "type": "string",
-                          "example": "Winston Churchill"
+                          "example": "John Doe"
                         },
                         "email": {
                           "type": "string",
@@ -932,7 +932,7 @@
           "name": {
             "description": "Contact's name",
             "type": "string",
-            "example": "Winston Churchill"
+            "example": "John Doe"
           },
           "phoneNumber": {
             "description": "Contac's phone number",
