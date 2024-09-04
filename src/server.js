@@ -1,17 +1,15 @@
 import express from 'express';
 import pino from 'pino-http';
 import cors from 'cors';
+import cookieParser from 'cookie-parser';
 
 import { env } from './utils/env.js';
-// import contactsRouter from './routers/contacts.js';
 import router from './routers/index.js';
 import { errorHandler } from './midlewares/errorHandler.js';
 import { notFoundHandler } from './midlewares/notFoundHandler.js';
-import cookieParser from 'cookie-parser';
-import { UPLOAD_DIR } from './constants/index.js';
+import swaggerUI from 'swagger-ui-express';
 import { swaggerDocs } from './midlewares/swaggerDocs.js';
-
-
+import { UPLOAD_DIR } from './constants/index.js';
 
 const PORT = Number(env('PORT', '3000'));
 
@@ -44,12 +42,9 @@ export const startServer = () => {
 
   app.use(errorHandler);
 
+  app.use('/api-docs', swaggerUI.serve, swaggerDocs);
+
   app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
   });
-
-  app.use('/uploads', express.static(UPLOAD_DIR));
-  app.use('/api-docs', swaggerDocs());
 };
-
-

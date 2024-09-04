@@ -207,7 +207,7 @@
                   "name": {
                     "description": "Contact's name",
                     "type": "string",
-                    "example": "John Doe"
+                    "example": "Winston Churchill"
                   },
                   "phoneNumber": {
                     "description": "Contac's phone number",
