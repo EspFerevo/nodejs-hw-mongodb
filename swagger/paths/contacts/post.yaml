@@ -38,7 +38,7 @@ requestBody:
           photo:
             description: "Link to user's photo"
             type: string
-            example: 'https://res.cloudinary.com/dmxvdn8fz/image/upload/v1719194096/dz4thhfuzuikmsajcj9o.png'
+            example: 'https://res.cloudinary.com/dgucd9wvd/image/upload/v1724571671/apkiksm1unzzzuwgw9qw.jpg'
 responses:
   '201':
     description: Contact created
