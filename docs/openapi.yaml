@@ -13,7 +13,7 @@ tags:
     description: Register, login, logout, refresh user operations
 
 servers:
-  - url: 'https://nodejs-hw-mongodb-3-6492.onrender.com'
+  - url: https://nodejs-hw-mongodb-3-6492.onrender.com
 
 components:
   securitySchemes:
